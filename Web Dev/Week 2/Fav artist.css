@@ -1,0 +1,19 @@
+body {
+    background-color:darkgray;
+}
+
+img {
+    width: 250px;
+    height: 250px;
+    display: block;
+    margin: 0 auto;
+}
+
+p {
+    color: black;
+    font-size: 20px;
+}
+
+h1 {
+    font-size: 100px;
+}
