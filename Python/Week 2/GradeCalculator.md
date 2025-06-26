@@ -8,4 +8,4 @@ It is used to check if a boolean expression is either true or false.
 An else-statement is attached after an if statement as a different outcome if the if-statement returns false. 
 
 4. What does the if-else statement do?
-Instead of skipping the code it will run a different code in the if statement 
+Instead of skipping the code it will run a different code in the if statement. it will just go down the lines of code till it finds some code that comes back as true. it will then run that code.
