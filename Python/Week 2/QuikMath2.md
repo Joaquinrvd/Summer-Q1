@@ -1,4 +1,4 @@
-1.Define what a function is in your own words
+1. Define what a function is in your own words
 It is code that does one thing and does it better than another other.
 
 2. What key word is used to define a function?
