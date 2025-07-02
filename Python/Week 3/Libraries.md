@@ -8,3 +8,9 @@ Import and then the name of the library
 OS
 Datatime
 Math 
+
+4. What is a module in your own words?
+A file of python code.
+
+5. State why libraries and modules are helpful in your own words.
+You have the tools so it makes it a lot faster and easyer.
