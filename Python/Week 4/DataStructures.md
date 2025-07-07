@@ -12,3 +12,9 @@ list: to add an item use appened()
 
 5. How do you access an item in a list or tuple?
 "You can access tuple items by referring to the index number, inside square brackets" -w3schools
+
+6. What characters are used to create a list, tuple, dictionary &, set respectively?
+list:[]
+tuple:()
+set:{}
+dictionary:{}
