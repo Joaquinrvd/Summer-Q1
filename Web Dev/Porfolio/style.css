@@ -254,3 +254,26 @@ width: 100%;
     font-weight: 500;
     margin-bottom: 20px;
 }
+
+.layer a{ 
+    margin-top: 20px;
+    color: #000000;
+    text-decoration: none;
+    font-size: 18px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    text-align: center;
+    
+}
+
+.layer a i {
+    font-size: 80px; 
+    color: #ffffff; 
+    transition: transform 0.3s;
+}
+
+.layer a:hover i {
+    transform: scale(1.2);
+}
+
