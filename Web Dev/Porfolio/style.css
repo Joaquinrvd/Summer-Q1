@@ -225,6 +225,7 @@ width: 100%;
     height: auto;
     border-radius: 10px;
     display: block;
+    transition: transform 0.5s;
 }
 
 .layer{
@@ -248,6 +249,7 @@ width: 100%;
 
 .work:hover .layer {
     opacity: 1;
+    height: 100%;
 }
 
 .layer h3{
@@ -277,3 +279,22 @@ width: 100%;
     transform: scale(1.2);
 }
 
+.work:hover img{
+    transform: scale(1.1);
+}
+
+.btn{
+    display: block;
+    margin: 50px auto;
+    width: fit-content;
+    border: 1px solid #6600ff;
+    padding: 14px 50px;
+    border-radius: 6px;
+    text-decoration: none;
+    text-decoration: none;
+    color: #fff;
+    transition: backround 0.5s;
+}
+.btn:hover{
+    background: #6600ff;
+}
