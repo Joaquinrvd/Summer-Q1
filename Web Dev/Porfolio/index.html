@@ -12,13 +12,15 @@
      <div class = "container">
         <nav>
              <img src="images/HGPAssets_PrimaryLogo_Yellow.png" class="logo">
-             <ul>
+             <ul id="sidemenu">
                  <li><a href ="Home">Home</a></li>
                  <li><a href ="Home">About</a></li>
                  <li><a href ="Home">Services</a></li>
                 <li><a href ="Home">Porfolio</a></li>
                 <li><a href ="Home">Contact</a></li>
+                 <i class="fa-solid fa-xmark"onclick="closemenu()"></i>
              </ul>
+             <i class="fa-solid fa-bars" onclick="openmenu()"></i>
          </nav>
         <div class="header-text">
              <p>Hidden Genius Project Student</p> 
@@ -161,7 +163,7 @@
         <a href="#" class="btn">See More</a>
     </div>
 </div>
-<!----------contract-------->
+<!----------contact-------->
 <div id="contract">
     <div class="container">
         <div class="row">
@@ -209,7 +211,22 @@
         document.getElementById(tabname).classList.add("active-tab");
     }
 
+
+
+
 </script>
+
+<script>
+    var sidemenu = document.getElementById("sidemenu");
+    
+    function openmenu(){
+        sidemenu.style.right = "0";
+    }
+    function closemenu(){
+        sidemenu.style.right = "-200px";
+    }
+</script>
+
 
 </body>
 </html>
