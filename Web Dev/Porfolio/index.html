@@ -1,245 +1,245 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Document</title>
-    <link rel="stylesheet", href="style.css">
+
+    <link rel="stylesheet" href="style.css" />
+
     <script src="https://kit.fontawesome.com/d346c08c8e.js" crossorigin="anonymous"></script>
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 </head>
 <body>
-<div id="header">
-     <div class = "container">
-        <nav>
-             <img src="images/HGPAssets_PrimaryLogo_Yellow.png" class="logo">
-             <ul id="sidemenu">
-                 <li><a href ="#Header">Home</a></li>
-                 <li><a href ="#about">About</a></li>
-                 <li><a href ="#services">Services</a></li>
-                <li><a href ="#portfolio">My Work</a></li>
-                <li><a href ="#contact">Contact</a></li>
-                 <i class="fa-solid fa-xmark"onclick="closemenu()"></i>
-             </ul>
-             <i class="fa-solid fa-bars" onclick="openmenu()"></i>
-         </nav>
-        <div class="header-text">
-             <p>Hidden Genius Project Student</p> 
-             <h2>Hi, I'm <span>Joaquin</span> Robert <br>Vincent-DaGrace from California
-
-             </h2>
-         </div>
-     </div>
-</div>
-<!-----------about---------->
-<div id="about">
+  <div id="header">
     <div class="container">
-        <div class="row">
-            <div class="about-col-1">
-                <img src="images/Untitled Project.jpg" alt="">
-            </div>
-            <div class="about-col-2">
-                <h1 class="sub-title">About Me</h1>
-                <p>
-                    I am Joaquin Robert Vincent-DaGrace. My Birthday is 02/22/2011 and i am 14.
-                    I go to De Anza high school as a freshmen. I am a member of the hidden Genius 
-                    project as a Student. 
-                </p>
-
-                <div class="tab-titles">
-                    <p class="tab-links active-link" onclick="opentab('skills')">Skills</p>
-                    <p class="tab-links"onclick="opentab('experience')">Experience</p>
-                    <p class="tab-links"onclick="opentab('education')">Education</p>
-                </div>
-                <div class="tab-contents active-tab" id="skills">
-                    <ul>
-                        <li><span>Python:</span><br>Beginner</li>
-                        <li><span>HTML:</span><br>Beginner</li>
-                        <li><span>Game Dev:</span><br>Intermediate</li>
-                    </ul>
-                </div>
-                <div class="tab-contents"id="experience">
-                    <ul>
-                        <li><span>2022 - 2023</span><br>ID Tech</li>
-                        <li><span>2023 - 2024</span><br>Amazon ID Tech</li>
-                        <li><span>2025 - 2026 Current</span><br>The Hidden Genius Project</li>
-                    </ul>
-                </div>
-                <div class="tab-contents"id="education">
-                    <ul>
-                        <li><span>Betty Reid Soskin Middle School</span><br>GPA: 4.00</li>
-                        <li><span>Murphy Ranch Elementary</span><br>GPA: 4.00</li>
-                        <li><span>Sol Aureus College Preparatory</span><br>GPA: 4.00</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+      <nav>
+        <img src="images/HGPAssets_PrimaryLogo_Yellow.png" class="logo" />
+        <ul id="sidemenu">
+          <li><a href="#header">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#portfolio">My Work</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <i class="fa-solid fa-xmark" onclick="closemenu()"></i>
+        </ul>
+        <i class="fa-solid fa-bars" onclick="openmenu()"></i>
+      </nav>
+      <div class="header-text" data-aos="fade-up">
+        <p>Hidden Genius Project Student</p>
+        <h2>Hi, I'm <span>Joaquin</span> Robert <br />Vincent-DaGrace from California</h2>
+      </div>
     </div>
-</div>
-<!-----------services---------->
-<div id="services">
+  </div>
+
+  <!-----------about---------->
+  <div id="about">
     <div class="container">
-        <h1 class="sub-title">My Services</h1>
-        <div class="services-list">
-            <div class="service-col">
-                <i class="fa-solid fa-code"></i>
-                <h2>Game Development</h2>
-                <p>I can make games using Unity and Unreal Engine.</p>
-                <a href="#">Learn more</a>
-            </div>
-            <div class="service-col">
-                <i class="fa-solid fa-crop"></i>
-                <h2>Web Development</h2>
-                <p>I can make apps </p>
-                <a href="#">Learn more</a>
-            </div>
-            <div class="service-col">
-                <i class="fa-brands fa-app-store-ios"></i>
-                <h2>Help with code</h2>
-                <p>I can help with code.</p>
-                <a href="#">Learn more</a>
-            </div>
+      <div class="row">
+        <div class="about-col-1" data-aos="fade-right">
+          <img src="images/Untitled Project.jpg" alt="" />
         </div>
+        <div class="about-col-2" data-aos="fade-left">
+          <h1 class="sub-title">About Me</h1>
+          <p>
+            I am Joaquin Robert Vincent-DaGrace. My Birthday is 02/22/2011 and I am
+            14. I go to De Anza high school as a freshmen. I am a member of the
+            hidden Genius project as a Student.
+          </p>
+
+          <div class="tab-titles">
+            <p class="tab-links active-link" onclick="opentab('skills')">Skills</p>
+            <p class="tab-links" onclick="opentab('experience')">Experience</p>
+            <p class="tab-links" onclick="opentab('education')">Education</p>
+          </div>
+          <div class="tab-contents active-tab" id="skills">
+            <ul>
+              <li><span>Python:</span><br />Beginner</li>
+              <li><span>HTML:</span><br />Beginner</li>
+              <li><span>Game Dev:</span><br />Intermediate</li>
+            </ul>
+          </div>
+          <div class="tab-contents" id="experience">
+            <ul>
+              <li><span>2022 - 2023</span><br />ID Tech</li>
+              <li><span>2023 - 2024</span><br />Amazon ID Tech</li>
+              <li><span>2025 - 2026 Current</span><br />The Hidden Genius Project</li>
+            </ul>
+          </div>
+          <div class="tab-contents" id="education">
+            <ul>
+              <li><span>Betty Reid Soskin Middle School</span><br />GPA: 4.00</li>
+              <li><span>Murphy Ranch Elementary</span><br />GPA: 4.00</li>
+              <li><span>Sol Aureus College Preparatory</span><br />GPA: 4.00</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
-<!---------------portfolio------------->
-<div id="portfolio">
+  </div>
+
+  <!-----------services---------->
+  <div id="services">
     <div class="container">
-        <h1 class="sub-title">My Work</h1>
-        <div class="work-list">
-            <div class="work">
-                <img src="images/work-1.webp">
-                <div class="layer">
-                    <h3>Game Development</h3>
-                    <p>Games are more than just entertainment. They are powerful 
-                        tools for connection, learning, and creativity. They ignite the 
-                        imagination, encourage problem-solving, and help people develop 
-                        valuable skills such as critical thinking, collaboration, and 
-                        perseverance. Through challenges, storytelling, and interactive play, 
-                        games have the unique ability to bring people together across cultures, 
-                        ages, and backgrounds. Whether its the thrill of competition or the joy of 
-                        shared discovery, games create meaningful experiences that leave lasting impressions.
-                        The games I create aim to capture this potential blending 
-                        fun with purpose to inspire, engage, and unite.</p>
-                         <a href="#"><i class="fa-solid fa-gamepad"></i></a>
-                </div>
-            </div>
-
-
-            <div class="work">
-                <img src="images/621675c05eb08a490b32f9f1_image+(1) (1).webp"> 
-                <div class="layer">
-                    <h3>Game Development</h3>
-                    <p>Game development is a powerful blend of creativity, technology,
-                         and storytelling, offering a unique way to bring ideas to life
-                          and connect with people around the world. It challenges 
-                          developers to solve complex problems while designing engaging,
-                           interactive experiences that can entertain, educate, or 
-                           inspire. Whether you're building a small indie game or 
-                           contributing to a massive AAA title, game dev provides 
-                           endless opportunities for learning, innovation, and artistic 
-                           expression in one of the world’s most dynamic and growing 
-                           industries.</p>
-                         <a href="#"><i class="fa-solid fa-gamepad"></i></a>
-                </div>
-            </div>
-
-
-            <div class="work">
-                <img src="images/3f2fd674a17d2d53970ec4e387f7e308e2aace7a.png">
-                <div class="layer">
-                    <h3>Code Help</h3>
-                    <p>Helping others with code does more than solve immediate problems. 
-                        It strengthens your own skills, deepens your understanding, and 
-                        fosters a spirit of collaboration. By sharing knowledge and offering
-                         support, you not only help others grow but also reinforce your own 
-                         learning through teaching and practical application. This kind of 
-                         mutual support builds trust, encourages innovation, and contributes
-                          to a more inclusive and empowered coding community where everyone 
-                          has the opportunity to thrive.</p>
-                         <a href="#"><i class="fa-solid fa-code-compare"></i></a>
-                </div>
-            </div>
+      <h1 class="sub-title" data-aos="fade-up">My Services</h1>
+      <div class="services-list">
+        <div class="service-col" data-aos="zoom-in">
+          <i class="fa-solid fa-code"></i>
+          <h2>Game Development</h2>
+          <p>I can make games using Unity and Unreal Engine.</p>
+          <a href="#">Learn more</a>
         </div>
-        <a href="#" class="btn">See More</a>
+        <div class="service-col" data-aos="zoom-in" data-aos-delay="100">
+          <i class="fa-solid fa-crop"></i>
+          <h2>Web Development</h2>
+          <p>I can make apps </p>
+          <a href="#">Learn more</a>
+        </div>
+        <div class="service-col" data-aos="zoom-in" data-aos-delay="200">
+          <i class="fa-brands fa-app-store-ios"></i>
+          <h2>Help with code</h2>
+          <p>I can help with code.</p>
+          <a href="#">Learn more</a>
+        </div>
+      </div>
     </div>
-</div>
-<!----------contact-------->
-<div id="contact">
+  </div>
+
+  <!---------------portfolio------------->
+  <div id="portfolio">
     <div class="container">
-        <div class="row">
-            <div class="contact-left">
-                <h1 class="sub-title">Contact Me</h1>
-                <p><i class="fa-solid fa-paper-plane"></i> Contact joaquin.vincent-dagrace@hgs.hiddengeniusproject.org</p>
-                <p><i class="fa-solid fa-phone"></i> 0123456789</p>
-                <div class="social-icons">
-                    <a href=""><i class="fa-solid fa-inbox"></i></a>
-                    <a href="https://github.com/Joaquinrvd?tab=repositories"><i class="fa-brands fa-github"></i></a>
-                </div>
-                <a href="images/1000006456.jpg" download class="btn">Download Headshots</a>
-            </div>
-
-            <div class="contact-right">
-                <form name="submit-to-google-sheet">
-                    <input type="text" name="Name" placeholder="Your Name" required>
-                    <input type="email" name="email" placeholder="Your Email" required>
-                    <textarea name="Message" rows="6" placeholder="Your Message"></textarea>
-                    <button type="submit" class="btn btn2">Submit</button>
-                </form>
-                <span id="msg"></span>
-            </div>
+      <h1 class="sub-title" data-aos="fade-up">My Work</h1>
+      <div class="work-list">
+        <div class="work" data-aos="fade-up">
+          <img src="images/work-1.webp" />
+          <div class="layer">
+            <h3>Game Development</h3>
+            <p>
+              Games are more than just entertainment. They are powerful tools
+              for connection, learning, and creativity. They ignite the
+              imagination, encourage problem-solving, and help people develop
+              valuable skills such as critical thinking, collaboration, and
+              perseverance. Through challenges, storytelling, and interactive
+              play, games have the unique ability to bring people together across
+              cultures, ages, and backgrounds. Whether its the thrill of
+              competition or the joy of shared discovery, games create meaningful
+              experiences that leave lasting impressions. The games I create aim
+              to capture this potential blending fun with purpose to inspire,
+              engage, and unite.
+            </p>
+            <a href="#"><i class="fa-solid fa-gamepad"></i></a>
+          </div>
         </div>
+
+        <div class="work" data-aos="fade-up" data-aos-delay="100">
+          <img src="images/621675c05eb08a490b32f9f1_image+(1) (1).webp" />
+          <div class="layer">
+            <h3>Game Development</h3>
+            <p>
+              Game development is a powerful blend of creativity, technology,
+              and storytelling, offering a unique way to bring ideas to life and
+              connect with people around the world. It challenges developers to
+              solve complex problems while designing engaging, interactive
+              experiences that can entertain, educate, or inspire. Whether
+              you're building a small indie game or contributing to a massive AAA
+              title, game dev provides endless opportunities for learning,
+              innovation, and artistic expression in one of the world’s most
+              dynamic and growing industries.
+            </p>
+            <a href="#"><i class="fa-solid fa-gamepad"></i></a>
+          </div>
+        </div>
+
+        <div class="work" data-aos="fade-up" data-aos-delay="200">
+          <img src="images/3f2fd674a17d2d53970ec4e387f7e308e2aace7a.png" />
+          <div class="layer">
+            <h3>Code Help</h3>
+            <p>
+              Helping others with code does more than solve immediate problems.
+              It strengthens your own skills, deepens your understanding, and
+              fosters a spirit of collaboration. By sharing knowledge and
+              offering support, you not only help others grow but also reinforce
+              your own learning through teaching and practical application. This
+              kind of mutual support builds trust, encourages innovation, and
+              contributes to a more inclusive and empowered coding community
+              where everyone has the opportunity to thrive.
+            </p>
+            <a href="#"><i class="fa-solid fa-code-compare"></i></a>
+          </div>
+        </div>
+      </div>
+      <a href="#" class="btn" data-aos="fade-up">See More</a>
     </div>
-    <div class="copyright">
-        <p>Copyright © Joaquin. Made by <i class="fa-solid fa-laptop-code"></i> Joaquin Robert Vincent-DaGrace <i class="fa-brands fa-steam"></i></p>
+  </div>
+
+  <!----------contact-------->
+  <div id="contact">
+    <div class="container">
+      <div class="row">
+        <div class="contact-left" data-aos="fade-right">
+          <h1 class="sub-title">Contact Me</h1>
+          <p><i class="fa-solid fa-paper-plane"></i> Contact joaquin.vincent-dagrace@hgs.hiddengeniusproject.org</p>
+          <p><i class="fa-solid fa-phone"></i> 0123456789</p>
+          <div class="social-icons">
+            <a href=""><i class="fa-solid fa-inbox"></i></a>
+            <a href="https://github.com/JoaquinRobert" target="_blank"><i class="fa-brands fa-github"></i></a>
+          </div>
+        </div>
+        <div class="contact-right" data-aos="fade-left">
+          <form action="#">
+            <input type="text" placeholder="Name" />
+            <input type="email" placeholder="Email" />
+            <textarea placeholder="Message" cols="30" rows="10"></textarea>
+            <button class="btn btn2">Send</button>
+          </form>
+        </div>
+      </div>
     </div>
-</div> 
+  </div>
+
+  <div class="copyright">
+    <p>
+      Copyright &copy; 2024 Joaquin Robert Vincent-DaGrace. All Rights Reserved.
+      <i class="fa-solid fa-heart"></i>
+    </p>
+  </div>
 
 
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 1000,
+      once: true,
+    });
 
 
-<script>
+    var sidemenu = document.getElementById("sidemenu");
 
-    var tablinks = document.getElementsByClassName("tab-links");
-    var tabcontents = document.getElementsByClassName("tab-contents");
-    function opentab(tabname) {
-        for (tablink of tablinks) {
-            tablink.classList.remove("active-link");
-        }
-        for (tabcontent of tabcontents) {
-            tabcontent.classList.remove("active-tab");
-        }
-        event.currentTarget.classList.add("active-link");
-        document.getElementById(tabname).classList.add("active-tab");
+    function openmenu() {
+      sidemenu.style.right = "0";
+    }
+    function closemenu() {
+      sidemenu.style.right = "-200px";
     }
 
 
+    function opentab(tabname) {
+      var i;
+      var tablinks = document.getElementsByClassName("tab-links");
+      var tabcontents = document.getElementsByClassName("tab-contents");
 
+      for (i = 0; i < tabcontents.length; i++) {
+        tabcontents[i].classList.remove("active-tab");
+      }
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove("active-link");
+      }
 
-</script>
-
-<script>
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbzFVnM6hwjG_jSiPF6ERd_kLt1LUlWxdV5fwKFkGNxKagLWI-aTYqYAw2G7rrNzEJm4wQ/exec';
-  const form = document.forms['submit-to-google-sheet'];
-  const msg = document.getElementById("msg");
-
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    fetch(scriptURL, { method: 'POST', body: new FormData(form) })
-      .then(response => {
-        msg.innerHTML = "Message sent successfully!";
-        msg.style.color = "green";
-        form.reset();
-        setTimeout(() => {
-          msg.innerHTML = "";
-        }, 5000);
-        form.reset()
-      })
-      .catch(error => {
-        msg.innerHTML = "Message failed to send.";
-        msg.style.color = "red";
-      });
-  });
-</script>
+      document.getElementById(tabname).classList.add("active-tab");
+      event.currentTarget.classList.add("active-link");
+    }
+  </script>
 
 </body>
 </html>
