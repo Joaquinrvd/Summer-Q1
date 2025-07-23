@@ -48,7 +48,7 @@ def DrawBackground():
 # Function to set up the initial game state, including placing the player
 def SetupGame():
     global player  # Declare the player variable as global so it can be used in other functions
-    player = Actor("player", anchor=("left", "top"))  # Create an Actor using the "player" image
+    player = pgzrun.Actor("player", anchor=("left", "top"))  # Create an Actor using the "player" image
     for y in range(GRID_HEIGHT):  # Loop through rows
         for x in range(GRID_WIDTH):  # Loop through columns
             square = MAP[y][x]  # Get the character in the MAP at this grid position
