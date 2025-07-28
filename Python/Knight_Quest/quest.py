@@ -1,119 +1,138 @@
 ################# 1.3 ##############
-import pgzrun  # Import the Pygame Zero module so we can use its features, such as the game loop and drawing
+# === Import the Pygame Zero framework ===
+import pgzrun  # Allows you to create games with a simplified interface
 ####################################
 
-# Define the number of grid tiles in width and height, and the size of each tile
-GRID_WIDTH = 25   # The game board will be 25 tiles wide
-GRID_HEIGHT = 15  # The game board will be 14 tiles tall (note: 15 rows in MAP, but index 0–14 is 15 total)
-GRID_SIZE = 50    # Each tile is 50 pixels by 50 pixels
+# === Game Board Dimensions ===
+GRID_WIDTH = 25     # Number of columns (tiles) horizontally
+GRID_HEIGHT = 15    # Number of rows (tiles) vertically
+GRID_SIZE = 50      # Size (in pixels) of each tile: 50x50
 
-# Define the size of the game window using the grid dimensions
-WIDTH = GRID_WIDTH * GRID_SIZE   # 25 tiles * 50 pixels = 1250 pixels wide
-HEIGHT = GRID_HEIGHT * GRID_SIZE # 14 tiles * 50 pixels = 700 pixels tall
+# === Game Window Size (in pixels) ===
+WIDTH = GRID_WIDTH * GRID_SIZE    # 1250 pixels wide
+HEIGHT = GRID_HEIGHT * GRID_SIZE  # 750 pixels tall
 
-# Define the dungeon map using a list of strings, each character represents a tile or object
-# Legend:
-# W = wall, P = player start, G = gold, K = key, D = door, ' ' = empty floor
+# === Global Game State ===
+gameOver = False  #  Declare globally
+
+# === Dungeon Map Layout ===
+# W = wall, P = player start, G = gold, K = key, D = door, ' ' = floor
 MAP = [
-    "WWWWWWWWWWWWWWWWWWWWWWWWW",  # Row 0 (top of the screen) - full wall
-    "W                       W",  # Row 1 - empty floor bordered by walls
-    "W                       W",  # Row 2 - empty floor
-    "W  W  KG         KG     W",  # Row 3 - walls and gold/key clusters
-    "W  WWWWWWWWWWWWWWWWWWW  W",  # Row 4 - thick center wall
-    "W                       W",  # Row 5 - open floor
-    "W                       W",  # Row 6
-    "W                       W",  # Row 7
-    "W       P               W",  # Row 8 - Player starts here
-    "W  WWWWWWWWWW           W",  # Row 9 - wall block
-    "W      GK   W           W",  # Row 10 - some gold and a key
-    "W                       W",  # Row 11 - open floor
-    "W                       W",  # Row 12
-    "W                       D",  # Row 13 - Door is on far-right
-    "WWWWWWWWWWWWWWWWWWWWWWWWW"   # Row 14 (bottom of the screen) - full wall
+    "WWWWWWWWWWWWWWWWWWWWWWWWW",
+    "W P   W     W     W     W",
+    "W WWW W WWWWW WWWWW WWW W",
+    "W W G     W   K   W G W W",
+    "W W WWWWW W WWWWW W W W W",
+    "W K W     W     W W W K W",
+    "WWW W WWWWW WWW W WWW WWW",
+    "W     W   W K W W     W W",
+    "W WWWWW W W WWW WWWWW W W",
+    "W W   W W   W   W   K   W",
+    "W W W WWWWW WWWWW W WWWWW",
+    "W   W     K     W W     W",
+    "WWWWWWWWWWWWWWWWWWWWWWW W",
+    "W G     K     K     G   D",
+    "WWWWWWWWWWWWWWWWWWWWWWWWW"
 ]
 
+# === Converts grid coordinates to screen coordinates ===
+def GetScreenCoords(x, y):
+    return (x * GRID_SIZE, y * GRID_SIZE)
 
-# Function to convert grid coordinates (x, y) to pixel coordinates for screen drawing
-def GetScreenCords(x, y):
-    return (x * GRID_SIZE, y * GRID_SIZE)  # Each tile is 50 pixels, so multiply by tile size
-
-
-# Function to draw the dungeon floor across the entire screen
+# === Draw background floor tiles ===
 def DrawBackground():
-    for y in range(GRID_HEIGHT):        # Loop over each row of tiles
-        for x in range(GRID_WIDTH):     # Loop over each column in the row
-            # Draw the "floor1" tile image at the pixel location for this tile
-            screen.blit("floor1", GetScreenCords(x, y))
-
-##########################
-
-############# 1.7 ###########
-
-# Function to set up the game by placing the player at the correct location
-def SetupGame():
-    global player  # Declare player as a global variable so we can access it elsewhere
-    player = Actor("player", anchor=("left", "top"))  # Create a player Actor using the image "player.png"
-    
-    # Loop through the grid to find where the player (P) is in the MAP
     for y in range(GRID_HEIGHT):
         for x in range(GRID_WIDTH):
-            square = MAP[y][x]  # Get the character from the MAP at this grid location
-            if square == "P":   # If it's a player start position
-                player.pos = GetScreenCords(x, y)  # Set the player's position to that tile's pixel coordinates
+            screen.blit("floor1", GetScreenCoords(x, y))
 
-############################
+# === Get the player's position on the grid ===
+def GetActorGridPos(actor):
+    return (round(actor.x / GRID_SIZE), round(actor.y / GRID_SIZE))
 
+# === Set up game objects and initial state ===
+def SetupGame():
+    global player
+    global keysToCollect
+    global gameOver  #  Must declare this to modify global variable
+    gameOver = False
 
-############ 1.6 ###############
+    player = Actor("player", anchor=("left", "top"))
+    keysToCollect = []
 
-# Function to draw all walls and doors from the MAP
+    for y in range(GRID_HEIGHT):
+        for x in range(GRID_WIDTH):
+            square = MAP[y][x]
+            if square == "P":
+                player.pos = GetScreenCoords(x, y)
+            elif square == "K":
+                key = Actor("key", anchor=("left", "top"))
+                key.pos = GetScreenCoords(x, y)
+                keysToCollect.append(key)
+
+# === Draw static walls and door ===
 def DrawScenery():
-    for y in range(GRID_HEIGHT):       # Loop through each row
-        for x in range(GRID_WIDTH):    # Loop through each tile in the row
-            square = MAP[y][x]         # Get the tile type (character)
-            
-            if square == "W":          # If it's a wall tile
-                screen.blit("wall", GetScreenCords(x, y))  # Draw wall image
-                
-            elif square == "D":        # If it's a door tile
-                screen.blit("door", GetScreenCords(x, y))  # Draw door image
+    for y in range(GRID_HEIGHT):
+        for x in range(GRID_WIDTH):
+            square = MAP[y][x]
+            if square == "W":
+                screen.blit("wall", GetScreenCoords(x, y))
+            elif square == "D":
+                screen.blit("door", GetScreenCoords(x, y))
 
+# === Draw player and uncollected keys ===
+def DrawActors():
+    player.draw()
+    for key in keysToCollect:
+        key.draw()
 
-# The draw() function is called automatically by Pygame Zero every frame (60 times/sec by default)
+# === Main draw loop ===
 def draw():
-    DrawBackground()  # First draw the floor tiles
-    DrawScenery()     # Then draw the walls and door on top
-    player.draw()     # Finally draw the player sprite
+    screen.clear()
+    DrawBackground()
+    DrawScenery()
+    DrawActors()
+    if gameOver:
+        screen.draw.text("YOU WIN!", center=(WIDTH // 2, HEIGHT // 2), fontsize=80, color="yellow")
 
-#####################################
+# === Move the player on the grid ===
+def MovePlayer(dx, dy):
+    global gameOver
+    if gameOver:
+        return
 
+    (x, y) = GetActorGridPos(player)
+    x += dx
+    y += dy
 
-SetupGame()  # Run the SetupGame function to initialize the player position and game world
+    square = MAP[y][x]
+    if square == "W":
+        return
+    elif square == "D":
+        if len(keysToCollect) == 0:
+            gameOver = True  #  Only win if all keys collected
+        return
 
-from time import time
+    # Move player
+    player.pos = GetScreenCoords(x, y)
 
-last_move_time = 0
-move_delay = 0.2  # seconds
+    # Check for key pickup
+    for key in keysToCollect:
+        (keyX, keyY) = GetActorGridPos(key)
+        if x == keyX and y == keyY:
+            keysToCollect.remove(key)
+            break  #  Stop after removing the key
 
-def update():
-    global last_move_time
-    current_time = time()
+# === Handle keyboard input ===
+def on_key_down(key):
+    if key == keys.LEFT:
+        MovePlayer(-1, 0)
+    elif key == keys.UP:
+        MovePlayer(0, -1)
+    elif key == keys.RIGHT:
+        MovePlayer(1, 0)
+    elif key == keys.DOWN:
+        MovePlayer(0, 1)
 
-    if current_time - last_move_time > move_delay:
-        if keyboard.left:
-            player.x -= GRID_SIZE
-            last_move_time = current_time
-        elif keyboard.right:
-            player.x += GRID_SIZE
-            last_move_time = current_time
-        elif keyboard.up:
-            player.y -= GRID_SIZE
-            last_move_time = current_time
-        elif keyboard.down:
-            player.y += GRID_SIZE
-            last_move_time = current_time
-
-
-
-
-pgzrun.go()  # Start the Pygame Zero game loop (this keeps the game window open and running)
+# === Start the game ===
+SetupGame()
+pgzrun.go()
