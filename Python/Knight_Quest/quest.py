@@ -1,155 +1,163 @@
 ################# 1.3 ##############
+
 # === Import the Pygame Zero framework ===
-import pgzrun  # Allows you to create games with a simplified interface
+import pgzrun  # Allows you to create games using the Pygame Zero library (a simpler version of Pygame)
+
 ####################################
 
 # === Game Board Dimensions ===
-GRID_WIDTH = 25     # Number of columns (tiles) horizontally
-GRID_HEIGHT = 15    # Number of rows (tiles) vertically
-GRID_SIZE = 50      # Size (in pixels) of each tile: 50x50
-GUARDMOVEINTERVAL = 0.25
+GRID_WIDTH = 25     # Number of tiles horizontally
+GRID_HEIGHT = 15    # Number of tiles vertically
+GRID_SIZE = 50      # Size (in pixels) of each tile (width and height)
+GUARDMOVEINTERVAL = 0.25  # Time in seconds between each guard movement
 
 # === Game Window Size (in pixels) ===
-WIDTH = GRID_WIDTH * GRID_SIZE    # 1250 pixels wide
-HEIGHT = GRID_HEIGHT * GRID_SIZE  # 750 pixels tall
+WIDTH = GRID_WIDTH * GRID_SIZE    # Total screen width: 25 tiles × 50 pixels = 1250
+HEIGHT = GRID_HEIGHT * GRID_SIZE  # Total screen height: 15 tiles × 50 pixels = 750
 
 # === Global Game State ===
-gameOver = False  # Declare globally
+gameOver = False  # Flag to check whether the game has ended
 
 # === Dungeon Map Layout ===
-# W = wall, P = player start, G = guard, K = key, D = door, ' ' = floor
+# Characters on the map:
+# W = Wall, P = Player start, G = Guard, K = Key, D = Door, space = walkable floor
 MAP = [
-    "WWWWWWWWWWWWWWWWWWWWWWWWW",
-    "W P   W     W G   W     W",
-    "W WWW W WWWWW WWWWW WWW W",
-    "W W       W   K   W G W W",
-    "W W WWWWW W WWWWW W W W W",
-    "W K W     W     W W W K W",
-    "WWW W WWWWW WWW W WWW WWW",
-    "W     W   W K W W     W W",
-    "W WWWWW W W WWW WWWWW W W",
-    "W W   W W   W   W   K   W",
-    "W W W WWWWW WWWWW W WWWWW",
-    "W  GW     K     W W     W",
-    "WWWWWWWWWWWWWWWWWWWWWWW W",
-    "W       K     K         D",
-    "WWWWWWWWWWWWWWWWWWWWWWWWW"
+    "WWWWWWWWWWWWWWWWWWWWWWWWW",  # Top row of walls
+    "W P   W     W G   W     W",  # Player starts at P, Guard at G
+    "W WWW W WWWWW WWWWW WWW W",  # Walls and pathways
+    "W W       W   K   W G W W",  # A key at K, Guard at G
+    "W W WWWWW W WWWWW W W W W",  # Maze-like structure
+    "W K W     W     W W W K W",  # Multiple keys
+    "WWW W WWWWW WWW W WWW WWW",  # Central maze
+    "W     W   W K W W     W W",  # More keys
+    "W WWWWW W W WWW WWWWW W W",  # Complex walls
+    "W W   W W   W   W   K   W",  # Open area with a key
+    "W W W WWWWW WWWWW W WWWWW",  # Tight corridors
+    "W  GW     K     W W     W",  # Guard and key together
+    "WWWWWWWWWWWWWWWWWWWWWWW W",  # Bottom wall with one opening
+    "W       K     K         D",  # Keys and the door at D
+    "WWWWWWWWWWWWWWWWWWWWWWWWW"   # Bottom-most row of walls
 ]
 
-# === Converts grid coordinates to screen coordinates ===
+# === Converts grid coordinates (x, y) to screen (pixel) coordinates ===
 def GetScreenCoords(x, y):
-    return (x * GRID_SIZE, y * GRID_SIZE)
+    return (x * GRID_SIZE, y * GRID_SIZE)  # Convert grid tile to pixel coordinates
 
-# === Draw background floor tiles ===
+# === Draws the floor (background) on every tile ===
 def DrawBackground():
-    for y in range(GRID_HEIGHT):
-        for x in range(GRID_WIDTH):
-            screen.blit("floor1", GetScreenCoords(x, y))
+    for y in range(GRID_HEIGHT):          # Loop through each row
+        for x in range(GRID_WIDTH):       # Loop through each column
+            screen.blit("floor1", GetScreenCoords(x, y))  # Draw floor tile at each position
 
-# === Get the player's position on the grid ===
+# === Gets grid (tile) position from an actor's screen (pixel) position ===
 def GetActorGridPos(actor):
-    return (round(actor.x / GRID_SIZE), round(actor.y / GRID_SIZE))
+    return (round(actor.x / GRID_SIZE), round(actor.y / GRID_SIZE))  # Convert pixel to grid
 
-# === Set up game objects and initial state ===
+# === Initializes all game objects based on the MAP ===
 def SetupGame():
     global player, keysToCollect, guards, gameOver
-    gameOver = False
+    gameOver = False  # Reset game state
 
-    player = Actor("player", anchor=("left", "top"))
-    keysToCollect = []
-    guards = []
+    player = Actor("player", anchor=("left", "top"))  # Create player actor
+    keysToCollect = []  # List to hold key actors
+    guards = []         # List to hold guard actors
 
+    # Loop through each tile on the map
     for y in range(GRID_HEIGHT):
         for x in range(GRID_WIDTH):
-            square = MAP[y][x]
+            square = MAP[y][x]  # Get the tile character
             if square == "P":
-                player.pos = GetScreenCoords(x, y)
+                player.pos = GetScreenCoords(x, y)  # Set player position
             elif square == "K":
-                key = Actor("key", anchor=("left", "top"))
+                key = Actor("key", anchor=("left", "top"))  # Create key
                 key.pos = GetScreenCoords(x, y)
-                keysToCollect.append(key)
+                keysToCollect.append(key)  # Add key to list
             elif square == "G":
-                guard = Actor("guard", anchor=("left", "top"))
+                guard = Actor("guard", anchor=("left", "top"))  # Create guard
                 guard.pos = GetScreenCoords(x, y)
-                guards.append(guard)
+                guards.append(guard)  # Add guard to list
 
-# === Draw static walls and door ===
+# === Draw static map objects like walls and doors ===
 def DrawScenery():
-    for y in range(GRID_HEIGHT):
-        for x in range(GRID_WIDTH):
+    for y in range(GRID_HEIGHT):          # Loop through each row
+        for x in range(GRID_WIDTH):       # Loop through each column
             square = MAP[y][x]
             if square == "W":
-                screen.blit("wall", GetScreenCoords(x, y))
+                screen.blit("wall", GetScreenCoords(x, y))  # Draw wall
             elif square == "D":
-                screen.blit("door", GetScreenCoords(x, y))
+                screen.blit("door", GetScreenCoords(x, y))  # Draw door
 
-# === Draw player, guards, and uncollected keys ===
+# === Draw player, keys, and guards ===
 def DrawActors():
-    player.draw()
+    player.draw()  # Draw the player character
     for key in keysToCollect:
-        key.draw()
+        key.draw()  # Draw each key
     for guard in guards:
-        guard.draw()
+        guard.draw()  # Draw each guard
 
-# === Main draw loop ===
+# === Main draw loop called every frame ===
 def draw():
-    screen.clear()
-    DrawBackground()
-    DrawScenery()
-    DrawActors()
-    if gameOver:
-        screen.draw.text("YOU WIN!" if len(keysToCollect) == 0 else "YOU LOSE!",
-                         center=(WIDTH // 2, HEIGHT // 2),
-                         fontsize=80, color="yellow")
+    screen.clear()  # Clear the screen
+    DrawBackground()  # Draw floor
+    DrawScenery()     # Draw walls and door
+    DrawActors()      # Draw player, keys, guards
 
-# === Move the player on the grid ===
+    # If the game has ended, show win or lose message
+    if gameOver:
+        screen.draw.text(
+            "YOU WIN!" if len(keysToCollect) == 0 else "YOU LOSE!",  # Win if no keys left
+            center=(WIDTH // 2, HEIGHT // 2),  # Show message in center
+            fontsize=80, color="yellow"  # Text styling
+        )
+
+# === Attempts to move the player in a direction ===
 def MovePlayer(dx, dy):
     global gameOver
     if gameOver:
-        return
+        return  # Do nothing if game over
 
-    (x, y) = GetActorGridPos(player)
-    x += dx
+    (x, y) = GetActorGridPos(player)  # Get current grid position
+    x += dx  # Apply movement delta
     y += dy
 
-    square = MAP[y][x]
+    square = MAP[y][x]  # Check the destination tile
     if square == "W":
-        return
+        return  # Can't move into walls
     elif square == "D":
-        if len(keysToCollect) == 0:
-            gameOver = True  # Only win if all keys collected
-        return
+        if len(keysToCollect) == 0:  # Only allow door if all keys collected
+            gameOver = True  # Player wins
+        return  # Don't move through door
 
-    # Move player
-    player.pos = GetScreenCoords(x, y)
+    player.pos = GetScreenCoords(x, y)  # Move player to new position
 
-    # Check for key pickup
+    # Check if player landed on a key
     for key in keysToCollect:
         (keyX, keyY) = GetActorGridPos(key)
         if x == keyX and y == keyY:
-            keysToCollect.remove(key)
-            break  # Stop after removing the key
+            keysToCollect.remove(key)  # Remove collected key
+            break  # Only remove one key
 
-# === Handle keyboard input ===
+# === Handles key press input ===
 def on_key_down(key):
     if key == keys.LEFT:
-        MovePlayer(-1, 0)
+        MovePlayer(-1, 0)  # Move left
     elif key == keys.UP:
-        MovePlayer(0, -1)
+        MovePlayer(0, -1)  # Move up
     elif key == keys.RIGHT:
-        MovePlayer(1, 0)
+        MovePlayer(1, 0)   # Move right
     elif key == keys.DOWN:
-        MovePlayer(0, 1)
+        MovePlayer(0, 1)   # Move down
 
-# === Move a single guard toward the player ===
+# === Moves one guard toward the player ===
 def MoveGuard(guard):
     global gameOver
     if gameOver:
-        return
+        return  # Stop movement if game over
 
     (playerX, playerY) = GetActorGridPos(player)
     (guardX, guardY) = GetActorGridPos(guard)
 
+    # Move guard toward player (prioritize horizontal movement)
     if playerX > guardX and MAP[guardY][guardX + 1] != "W":
         guardX += 1
     elif playerX < guardX and MAP[guardY][guardX - 1] != "W":
@@ -159,19 +167,18 @@ def MoveGuard(guard):
     elif playerY < guardY and MAP[guardY - 1][guardX] != "W":
         guardY -= 1
 
-    guard.pos = GetScreenCoords(guardX, guardY)
+    guard.pos = GetScreenCoords(guardX, guardY)  # Move guard
 
-    # If guard catches player
+    # Check if guard caught the player
     if guardX == playerX and guardY == playerY:
-        gameOver = True
+        gameOver = True  # Player loses
 
-# === Move all guards ===
+# === Moves all guards each turn ===
 def MoveGuards():
     for guard in guards:
-        MoveGuard(guard)
+        MoveGuard(guard)  # Move each guard toward player
 
 # === Start the game ===
-SetupGame()
-clock.schedule_interval(MoveGuards, GUARDMOVEINTERVAL)
-pgzrun.go()
-
+SetupGame()  # Setup player, keys, and guards from the map
+clock.schedule_interval(MoveGuards, GUARDMOVEINTERVAL)  # Move guards on a timer
+pgzrun.go()  # Start the Pygame Zero game loop
