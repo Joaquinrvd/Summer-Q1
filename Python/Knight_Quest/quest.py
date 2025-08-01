@@ -119,10 +119,10 @@ MAPS = [
         "W     W   W   W   W   W W",
         "W WWWWW W WWWWWWW W W W W",
         "W   G W W   G   W W W K W",
-        "W WWWWW WWWWWWWWW WWWWWW ",
+        "W WWWWW WWWWWWWWW WWWWW W",
         "W G   K     G   K     G W",
-        "WWWWWWWWWWWWWWWWWW WWWWWW",
-        "W     K     W     K    DW",
+        "W WWWWWWWWWWWWWWWW WWWWWW",
+        "W     K           K    DW",
         "WWWWWWWWWWWWWWWWWWWWWWWWW"
     ]
 
@@ -241,10 +241,12 @@ def MovePlayer(dx, dy):
         return
 
     tile = current_map[y][x]
-    if tile == "W": return
+    if tile == "W":
+        return
     elif tile == "D" and len(keysToCollect) == 0:
         if boss_mode:
             gameOver = True
+            show_intro_message = "YOU BEAT THE GAME!"
         else:
             level += 1
             if level == len(MAPS) - 1:
@@ -277,7 +279,7 @@ def MovePlayer(dx, dy):
 # --- Guard AI ---
 def MoveGuard(guard):
     global gameOver, level, lives, boss_mode
-    if gameOver or waiting_for_input:
+    if gameOver or waiting_for_input or (boss_mode and len(keysToCollect) == 0):
         return
 
     playerX, playerY = GetActorGridPos(player)
