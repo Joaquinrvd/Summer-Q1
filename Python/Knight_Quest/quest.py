@@ -266,7 +266,7 @@ def MovePlayer(dx, dy):
                 if lives <= 0:
                     level = 0
                 gameOver = True
-            else:
+            else:                                       
                 gameOver = True
             return
 
