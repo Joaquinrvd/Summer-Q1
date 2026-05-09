@@ -122,7 +122,7 @@ MAPS = [
         "W WWWWW WWWWWWWWW WWWWW W",
         "W G   K     G   K     G W",
         "W WWWWWWWWWWWWWWWW WWWWWW",
-        "W     K           K    DW",
+        "W     K           K     D",
         "WWWWWWWWWWWWWWWWWWWWWWWWW"
     ]
 
